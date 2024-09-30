@@ -24,6 +24,15 @@ def submit_data():
         f.write(f"{data['data']}\n")
     return 'Данные успешно сохранены!', 200
 
-# Запуск сервера
+# Маршрут для получения данных из файла data.txt
+@app.route('/data', methods=['GET'])
+def get_data():
+    try:
+        with open('data.txt', 'r') as f:
+            content = f.read()
+        return content, 200
+    except FileNotFoundError:
+        return "Файл не найден", 404
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
